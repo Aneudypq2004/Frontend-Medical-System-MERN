@@ -22,7 +22,7 @@ export default function CreateAccount() {
 
     try {
 
-      const { data } = await clientesAxios.post('create', {
+      const { data } = await clientesAxios.post('/create', {
         name, email, password
       })
 
