@@ -1,28 +1,39 @@
 import React, { useState } from 'react'
-import { Link,  useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import clientesAxios from '../config/clientAxios';
 import { toast } from 'react-toastify';
 import useAuth from '../hook/UseAuth';
-
+import { validEmail } from "../helpers/ValidEmail";
+import Spinner from '../components/Spinner';
 
 function Login() {
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate()
+    const [load, setLoad] = useState(false);
 
-    const { setAuth, auth } = useAuth()
+    const navigate = useNavigate();
 
-
+    const { setAuth } = useAuth();
 
     const handleSubmit = async e => {
+
+        setLoad(true)
 
         try {
             e.preventDefault()
 
+            const emailValid = validEmail(email)
+
+            if (!emailValid) {
+                setLoad(false)
+                toast.error('The email is invalid');
+                return;
+            }
+
             if (password.length < 8) {
-                toast.error('the password is very short it must be 8 characters')
+                setLoad(false)
+                toast.error('the password is very short it must be 8 characters');
                 return;
             }
             const { data } = await clientesAxios.post('/login', { email, password })
@@ -33,17 +44,16 @@ function Login() {
 
             localStorage.setItem('AneudyDevToken', data.response.token);
 
-
             navigate('/home');
 
             toast.success(data.msg)
 
-
         } catch (error) {
-            console.log(error)
+            setLoad(false)
             toast.error(error.response.data.msg);
         }
 
+        setLoad(false)
     }
 
     return (
@@ -72,8 +82,16 @@ function Login() {
                         type="password" name="password" id="password" className='w-full border rounded-sm p-2' />
                 </div>
 
-                <button type="submit"
-                    className='w-1/2 px-4 py-3 text-lg rounded-sm font-bold bg-indigo-600 hover:bg-indigo-800 transition-all duration-700 text-white mt-4'>Log In</button>
+                {load ? (
+
+                    <div className='mt-6'>
+                        <Spinner />
+                    </div>
+
+                ) : (
+                    <button type="submit"
+                        className='w-1/2 px-4 py-3 text-lg rounded-sm font-bold bg-indigo-600 hover:bg-indigo-800 transition-all duration-700 text-white mt-4'>Log In</button>
+                )}
 
             </form>
 

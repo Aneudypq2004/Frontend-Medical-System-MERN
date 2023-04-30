@@ -32,7 +32,7 @@ function PublicRoutes() {
             case 'confirm':
                 setTitle(PATHS.CONFIRM)
                 break;
-            
+
             default:
                 break;
         }

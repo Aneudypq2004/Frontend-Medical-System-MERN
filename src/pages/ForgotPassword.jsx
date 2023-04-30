@@ -1,27 +1,42 @@
-import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import {  useState } from "react";
+import { Link} from "react-router-dom";
 
 import clientesAxios from "../config/clientAxios";
-import { toast } from "react-toastify";
+import { validEmail } from "../helpers/ValidEmail";
 
+import { toast } from "react-toastify";
+import Spinner from "../components/Spinner";
 
 function ForgotPassword() {
 
   const [email, setEmail] = useState('');
+  const [load, setLoad] = useState(false)
 
   const handleSubmit = async e => {
 
-    e.preventDefault();
+    setLoad(true)
 
     try {
 
-      const { data } = await clientesAxios.post('/forgot-passwod', { email });
-      toast.success(data.msg);
+    e.preventDefault();
 
-    } catch (error) {
-      toast.error(error.response.data.msg)
+    const emailValid = validEmail(email)
+
+    if (!emailValid) {
+      setLoad(false)
+      toast.error('The email is invalid');
+      return;
     }
 
+      const { data } = await clientesAxios.post('/forgot-passwod', { email });
+      toast.success(data.msg);
+      setEmail('')
+
+    } catch (error) {
+      setLoad(false)
+      toast.error(error.response.data.msg)
+    }
+    setLoad(false)
 
   }
   return (
@@ -43,12 +58,19 @@ function ForgotPassword() {
 
         </div>
 
+        {load ? (
+          
+          <div className='mt-6'>
+            <Spinner />
+          </div>
 
+        ) : (
 
-        <button type="submit"
-          className='w-1/2 px-4 py-3 text-lg rounded-sm font-bold bg-indigo-600 hover:bg-indigo-800 transition-all duration-700 text-white mt-4'>
+          <button type="submit"
+            className='w-1/2 px-4 py-3 text-lg rounded-sm font-bold bg-indigo-600 hover:bg-indigo-800 transition-all duration-700 text-white mt-4'>
 
-          Send</button>
+            Send</button>
+        )}
 
       </form>
 

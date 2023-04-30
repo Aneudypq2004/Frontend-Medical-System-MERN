@@ -10,14 +10,29 @@ function ChangePassword() {
     const [valid, setValid] = useState(false);
     const [password, setPassword] = useState('');
     const [repeatPassword, setRepeatPassword] = useState('');
+    const [load, setLoad] = useState(false);
 
     const navigate = useNavigate()
 
     useEffect(() => {
 
+        setLoad(true)
+
         const changePassword = async () => {
 
             try {
+
+                if (password.length < 8) {
+                    setLoad(false)
+                    toast.error('the password is very short it must be 8 characters');
+                    return;
+                }
+
+                if (password !== repeatPassword) {
+                    setLoad(false)
+                    toast.error('The password are diferent')
+                    return;
+                  }
 
                 const { data } = await clientesAxios(`/update-password/${token}`);
 

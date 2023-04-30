@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
+import Spinner from "../components/Spinner";
 import clientesAxios from "../config/clientAxios";
+import { validEmail } from "../helpers/ValidEmail";
 import { toast } from "react-toastify";
 
 export default function CreateAccount() {
@@ -10,28 +11,58 @@ export default function CreateAccount() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+  const [load, setLoad] = useState(false)
 
   const handleSubmit = async e => {
 
-    e.preventDefault()
-
-    if (password !== repeatPassword) {
-      toast.error('The password are diferent')
-      return;
-    }
+    setLoad(true)
 
     try {
+      e.preventDefault()
+
+      const emailValid = validEmail(email)
+
+      if (!emailValid) {
+        setLoad(false)
+        toast.error('The email is invalid');
+        return;
+      }
+
+      if (password.length < 8) {
+        setLoad(false)
+        toast.error('the password is very short it must be 8 characters');
+        return;
+      }
+
+      if (password !== repeatPassword) {
+        setLoad(false)
+        toast.error('The password are diferent')
+        return;
+      }
+
+      //Request
 
       const { data } = await clientesAxios.post('/create', {
         name, email, password
       })
 
-      toast.success(data.msg)
+      toast.success(data.msg);
+
+      // Empty States
+
+      setName('');
+      setEmail('')
+      setPassword('')
+      setRepeatPassword('')
 
     } catch (error) {
+      setLoad(false)
       toast.error(error.response.data.msg)
     }
+
+    setLoad(false)
   }
+
   return (
     <div className='flex flex-col gap-4 justify-center h-full'>
 
@@ -92,8 +123,18 @@ export default function CreateAccount() {
             type="password" name="repeatPassword" id="repeatPassword" className='w-full border rounded-sm p-2' />
         </div>
 
-        <button type="submit"
-          className='w-1/2 px-4 py-3 rounded-sm font-bold bg-indigo-600 hover:bg-indigo-800 transition-all duration-700 text-white mt-4 text-lg'>Create it</button>
+        {load ? (
+
+          <div className='mt-6'>
+            <Spinner />
+          </div>
+
+        ) : (
+
+          <button type="submit"
+            className='w-1/2 px-4 py-3 rounded-sm font-bold bg-indigo-600 hover:bg-indigo-800 transition-all duration-700 text-white mt-4 text-lg'>Create it</button>
+
+        )}
 
       </form>
 
