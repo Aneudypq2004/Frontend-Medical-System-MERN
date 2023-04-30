@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link,  useNavigate } from 'react-router-dom'
 
 import clientesAxios from '../config/clientAxios';
 import { toast } from 'react-toastify';
+import useAuth from '../hook/UseAuth';
 
 
 function Login() {
@@ -10,6 +11,9 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate()
+
+    const { setAuth, auth } = useAuth()
+
 
 
     const handleSubmit = async e => {
@@ -23,14 +27,20 @@ function Login() {
             }
             const { data } = await clientesAxios.post('/login', { email, password })
 
-            toast.success(data.msg)
+            console.log(data)
 
-            await localStorage.setItem('AneudyDevToken', data.response.token);
+            setAuth(data.response)
+
+            localStorage.setItem('AneudyDevToken', data.response.token);
+
 
             navigate('/home');
 
+            toast.success(data.msg)
+
 
         } catch (error) {
+            console.log(error)
             toast.error(error.response.data.msg);
         }
 
