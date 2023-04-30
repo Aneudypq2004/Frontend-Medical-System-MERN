@@ -58,6 +58,8 @@ function ChangePassword() {
 
             toast(data.msg)
 
+            navigate('/login')
+
         } catch (error) {
             toast.error(error.response.data.msg);
         }
