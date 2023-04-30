@@ -25,8 +25,6 @@ function ChangePassword() {
 
                 toast.success(data.msg);
 
-                navigate('/login');
-
             } catch (error) {
                 toast.error(error.response.data.msg);
                 setValid(false)
