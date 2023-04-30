@@ -74,7 +74,7 @@ function ForgotPassword() {
 
       </form>
 
-      <nav className='flex justify-between mt-6  text-white'>
+      <nav className='flex justify-between mt-6 text-white uppercase tracking-wider'>
         <Link className='border-b pb-2 mr-4 border-indigo-800 hover:text-indigo-700 ' to='/login'>Log In</Link>
         <Link className='border-b pb-2 border-indigo-800 hover:text-indigo-700' to='/create'>No ocount ? Create one</Link>
       </nav>

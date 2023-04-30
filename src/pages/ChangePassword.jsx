@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom'
 
 import clientesAxios from '../config/clientAxios';
+import Spinner from '../components/Spinner';
 import { toast } from 'react-toastify';
 
 function ChangePassword() {
@@ -14,25 +15,15 @@ function ChangePassword() {
 
     const navigate = useNavigate()
 
-    useEffect(() => {
+    // check if token is valid
 
-        setLoad(true)
+    useEffect(() => {
 
         const changePassword = async () => {
 
+            setLoad(true)
+
             try {
-
-                if (password.length < 8) {
-                    setLoad(false)
-                    toast.error('the password is very short it must be 8 characters');
-                    return;
-                }
-
-                if (password !== repeatPassword) {
-                    setLoad(false)
-                    toast.error('The password are diferent')
-                    return;
-                  }
 
                 const { data } = await clientesAxios(`/update-password/${token}`);
 
@@ -40,10 +31,14 @@ function ChangePassword() {
 
                 toast.success(data.msg);
 
+
             } catch (error) {
-                toast.error(error.response.data.msg);
+                setLoad(false)
                 setValid(false)
+                toast.error(error.response.data.msg);
             }
+
+            setLoad(false)
         }
 
         changePassword()
@@ -54,36 +49,42 @@ function ChangePassword() {
 
     const handleSubmit = async e => {
 
-        e.preventDefault();
-
-        if (password.length < 8) {
-            toast.error('the password is very short it must be 8 characters')
-            return;
-        }
-
-        if (password !== repeatPassword) {
-            toast.error('The password are diferent')
-            return;
-        }
-     
+        setLoad(true);
 
         try {
+            e.preventDefault();
+
+            if (password.length < 8) {
+                setLoad(false)
+                toast.error('the password is very short it must be 8 characters');
+                return;
+            }
+
+            if (password !== repeatPassword) {
+                setLoad(false)
+                toast.error('The password are diferent')
+                return;
+            }
 
             const { data } = await clientesAxios.post(`/update-password/${token}`, { password });
 
-            toast(data.msg)
+            toast.success(data.msg)
 
             navigate('/login')
 
         } catch (error) {
+            setLoad(false)
             toast.error(error.response.data.msg);
         }
+
+        setLoad(false)
     }
 
     return (
         <div className='flex flex-col gap-4 justify-center h-full'>
 
             {valid ? (
+
                 <form onSubmit={handleSubmit}>
 
                     {/* Password  */}
@@ -114,18 +115,29 @@ function ChangePassword() {
                             type="password" name="repeatPassword" id="repeatPassword" className='w-full border rounded-sm p-2' />
                     </div>
 
-                    <button type="submit"
-                        className='w-1/2 px-4 py-3 rounded-sm font-bold bg-indigo-600 hover:bg-indigo-800 transition-all duration-700 text-white mt-4 text-lg'>Change</button>
+                    {load ? (
+
+                        <div className='mt-6'>
+                            <Spinner />
+                        </div>
+
+                    ) : (
+                        <button type="submit"
+                            className='w-1/2 px-4 py-3 rounded-sm font-bold bg-indigo-600 hover:bg-indigo-800 transition-all duration-700 text-white mt-4 text-lg'>Change</button>
+
+                    )}
 
                 </form>
-            ) : (
 
-                <div>
-                    <p className='text-center uppercase font-bold text-5xl text-indigo-600'>The token is invalid</p>
-                </div>
+            ) : (
+                <>
+                    {load ? <Spinner />
+
+                        : <p className='text-center uppercase font-bold text-5xl text-indigo-600'>The token is invalid</p>}
+                </>
             )}
 
-            <nav className='flex justify-between mt-6  text-white'>
+            <nav className='flex justify-between mt-6 text-white uppercase tracking-wider'>
                 <Link className='border-b pb-2 mr-4 border-indigo-800 hover:text-indigo-700 ' to='/login'>Log In</Link>
                 <Link className='border-b pb-2 border-indigo-800 hover:text-indigo-700' to='/create' >Get a new account</Link>
             </nav>
