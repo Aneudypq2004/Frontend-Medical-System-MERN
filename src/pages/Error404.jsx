@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom'
 
 import image from '/img/404.jpg';
+import useAuth from '../hook/UseAuth';
 
 function Error404() {
+
+  const {auth} = useAuth()
 
   return (
 
@@ -17,7 +20,7 @@ function Error404() {
 
           <h1 className='tracking-widest uppercase text-red-50'>This page cannot Found</h1>
 
-          <Link to="/home" className='bg-indigo-700 hover:bg-indigo-800 w-full uppercase text-center font-bold p-4 rounded-lg mt-6'>
+          <Link to={auth._id ? "/home" : '/'} className='bg-indigo-700 hover:bg-indigo-800 w-full uppercase text-center font-bold p-4 rounded-lg mt-6'>
             Back Home</Link>
 
         </div>
