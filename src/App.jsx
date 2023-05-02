@@ -1,5 +1,5 @@
 import { Route, Navigate, Routes, useLocation, BrowserRouter } from "react-router-dom";
-
+import {Suspense, lazy} from 'react'
 
 //Pages
 import Login from "./pages/Login"

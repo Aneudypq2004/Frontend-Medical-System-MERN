@@ -1,24 +1,31 @@
 import Spinner from "../components/Spinner";
-import { Outlet,  Navigate } from 'react-router-dom';
+import { Outlet, Navigate } from 'react-router-dom';
 
 //Components
-import Nav from "../components/Nav";
 import Sidebar from "../components/Sidebar";
 
 import useAuth from "../hook/UseAuth";
+import Header from "../components/Header";
 
-export default function AuthRoutes() { 
+export default function AuthRoutes() {
 
   const { auth, load } = useAuth()
 
+
+  if (load) return (
+
+    <div className="grid place-items-center h-screen">
+      <Spinner />
+    </div>
+
+  )
+
   return (
     <>
-
-      {load ? <Spinner /> : null}
       {auth._id ? (
         <>
 
-          <Nav />
+          <Header />
 
           <main className="flex gap-8">
             <Sidebar />

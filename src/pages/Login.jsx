@@ -14,7 +14,11 @@ function Login() {
 
     const navigate = useNavigate();
 
-    const { setAuth } = useAuth();
+    const { setAuth, auth } = useAuth();
+
+    if (auth._id) {
+        navigate('/home');
+    }
 
     const handleSubmit = async e => {
 

@@ -8,6 +8,7 @@ const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useState({})
 
     useEffect(() => {
+
         const checkAuth = async () => {
 
             const token = localStorage.getItem('AneudyDevToken');

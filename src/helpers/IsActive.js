@@ -1,6 +1,6 @@
 
 const NavActive = ({ isActive }) => {
-  return  isActive ? 'bg-indigo-700 rounded-sm p-2 ' : 'p-2 hover:bg-white'
+  return  isActive ? 'bg-indigo-800 rounded-sm p-2 text-center ' : 'hover:bg-indigo-800 bg-indigo-400 p-2 text-center rounded-sm'
 
 }
 

@@ -20,28 +20,43 @@
    
 
 ```js
- 
-  const handleSubmit = async e => {
+     const handleSubmit = async e => {
 
-    e.preventDefault()
+        setLoad(true)
 
-    if (password !== repeatPassword) {
-      toast.error('The password are diferent')
-      return;
+        try {
+            e.preventDefault()
+
+            const emailValid = validEmail(email)
+
+            if (!emailValid) {
+                setLoad(false)
+                toast.error('The email is invalid');
+                return;
+            }
+
+            if (password.length < 8) {
+                setLoad(false)
+                toast.error('the password is very short it must be 8 characters');
+                return;
+            }
+            const { data } = await clientesAxios.post('/login', { email, password });
+
+            setAuth(data.response);
+
+            localStorage.setItem('AneudyDevToken', data.response.token);
+
+            navigate('/home');
+
+            toast.success(data.msg)
+
+        } catch (error) {
+            setLoad(false)
+            toast.error(error.response.data.msg);
+        }
+
+        setLoad(false)
     }
-
-    try {
-
-      const { data } = await clientesAxios.post('/create', {
-        name, email, password
-      })
-
-      toast.success(data.msg)
-
-    } catch (error) {
-      toast.error(error.response.data.msg)
-    }
-  }
 
 ```
 
