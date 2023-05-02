@@ -7,12 +7,12 @@ export default function Sidebar() {
   const { setAuth } = useAuth();
 
   return (
-    <aside className="bg-amber-400 max-w-max p-2 h-screen w-full  ">
+    <aside className="bg-indigo-300 max-w-max p-2 h-screen w-full  ">
 
       <h1>sidebar here</h1>
 
 
-      <nav className="uppercase  text-white mt-4 flex flex-col gap-4">
+      <nav className="uppercas text-white  mt-4  flex flex-col gap-4">
 
         <NavLink to='/home' className={NavActive} >DashBoard</NavLink>
 
