@@ -7,7 +7,7 @@ export default function Sidebar() {
   const { setAuth } = useAuth();
 
   return (
-    <aside className="bg-indigo-300 max-w-max p-2 h-screen w-full  ">
+    <aside className="bg-indigo-600 max-w-max p-2 h-screen w-full">
 
       <h1>sidebar here</h1>
 
