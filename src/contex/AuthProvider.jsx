@@ -38,6 +38,7 @@ const AuthProvider = ({ children }) => {
 
     const closeSesionAuth = () => {
         setAuth({})
+        localStorage.removeItem('AneudyDevToken')
     }
 
     return (

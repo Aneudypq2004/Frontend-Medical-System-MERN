@@ -1,11 +1,18 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
 const PrivateContext = createContext()
 
-const privateProvider = ({ children }) => {
+const PrivateProvider = ({ children }) => {
+    const [sidebarHidden, setSidebarHidder] = useState(false);
+
+
+    const sidebarOpen = () => {
+        setSidebarHidder(!sidebarHidden)
+    }
 
     return (
         <PrivateContext.Provider value={{
+            sidebarOpen
 
         }}>
             {children}
@@ -14,6 +21,6 @@ const privateProvider = ({ children }) => {
 }
 
 
-export default privateProvider
+export default PrivateProvider
 
 export { PrivateContext }

@@ -42,8 +42,6 @@ function Login() {
             }
             const { data } = await clientesAxios.post('/login', { email, password })
 
-            console.log(data)
-
             setAuth(data.response)
 
             localStorage.setItem('AneudyDevToken', data.response.token);

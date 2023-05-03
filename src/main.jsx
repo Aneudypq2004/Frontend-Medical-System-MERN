@@ -4,14 +4,14 @@ import App from './App'
 import './styles/index.css'
 import 'react-toastify/dist/ReactToastify.css';
 import AuthProvider from './contex/AuthProvider';
-import privateProvider from './contex/PrivateProvider';
+import PrivateProvider from './contex/PrivateProvider';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AuthProvider>
-      <privateProvider>
+      <PrivateProvider>
         <App />
-      </privateProvider>
+      </PrivateProvider>
     </AuthProvider>
   </React.StrictMode >,
 )

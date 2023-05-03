@@ -1,5 +1,6 @@
 import useAuth from "../hook/UseAuth";
 import person from '/img/person.svg'
+import logout from '/img/logout.svg'
 import formatDate from "../helpers/FormatDate";
 import edit from '/img/edit.svg'
 import { useState } from "react";
@@ -7,7 +8,7 @@ import ModalNewPassword from "./ModalNewPassword";
 
 function WindowConfig() {
 
-    const { auth } = useAuth();
+    const { auth, closeSesionAuth } = useAuth();
     const [modalPassword, setModalPassword] = useState(false)
 
 
@@ -29,8 +30,7 @@ function WindowConfig() {
 
                 </div>
 
-                <img className="w m-auto bg-white rounded-full -mt-12" src={person} width={80} height={30} alt="KitDoc Icon" />
-
+                <img className="w m-auto -mt-12 bg-white rounded-full " src={person} width={80} height={30} alt="KitDoc Icon" />
 
                 <div className="p-4">
 
@@ -52,6 +52,10 @@ function WindowConfig() {
                     </div>
 
                     <p>Since: <span className="text-black">{formatDate(createdAt)} </span> </p>
+
+                    <button onClick={() => closeSesionAuth()} className="w-full uppercase flex justify-center content-center gap-4 bg-red-500 hover:bg-red-800 transition-all duration-300 mt-4 px-4 py-2 text-white rounded-lg">Close
+                        <img className="w-auto" width={30} height={20} src={logout} alt="Exit icon" />
+                    </button>
 
                 </div>
 

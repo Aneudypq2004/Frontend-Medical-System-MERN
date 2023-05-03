@@ -33,7 +33,7 @@ export default function Header() {
 
         <div className="flex justify-between relative gap-4 ">
 
-          <img onClick={() => handleClose()} className="w-auto" src={menu} width={30} height={30} alt="KitDoc Icon" />
+          <img onClick={() => handleClose()} className="w-auto md:invisible visible" src={menu} width={30} height={30} alt="KitDoc Icon" />
           <img onClick={() => setWindowInfo(!windowInfo)} className="w-auto  cursor-pointer" src={person} width={20} height={30} alt="KitDoc Icon" />
           <img onClick={() => setWindowConfig(!windowConfig)} className="w-auto" src={config} width={20} height={30} alt="KitDoc Icon" />
 
