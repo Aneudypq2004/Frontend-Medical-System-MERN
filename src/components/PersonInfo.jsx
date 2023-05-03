@@ -11,7 +11,7 @@ export default function PersonInfo() {
 
     
     return (
-        <div className="text-lg text-indigo-600 capitalize shadow-2xl absolute top-14  right-0 bg-white w-max">
+        <div className="text-lg text-center text-indigo-600 capitalize shadow-2xl absolute top-14  right-0 bg-white w-max">
 
             <div className="bg-indigo-400 p-12">
 
@@ -20,7 +20,7 @@ export default function PersonInfo() {
             <img className="w m-auto bg-white rounded-full -mt-12" src={person} width={80} height={30} alt="KitDoc Icon" />
 
 
-            <div className="p-4">
+            <div className="p-10 flex flex-col gap-2 ">
 
                 <p>{name}</p>
 

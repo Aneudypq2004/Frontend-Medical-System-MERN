@@ -5,18 +5,18 @@ import formatDate from "../helpers/FormatDate";
 import edit from '/img/edit.svg'
 import { useState } from "react";
 import ModalNewPassword from "./ModalNewPassword";
+import usePrivate from "../hook/UsePrivate";
 
 function WindowConfig() {
 
     const { auth, closeSesionAuth } = useAuth();
-    const [modalPassword, setModalPassword] = useState(false)
-
+    const { setModalPassword} = usePrivate()
 
     const { name, email, _id, createdAt } = auth
 
     const handleNewPassword = () => {
 
-        setModalPassword(!modalPassword)
+        setModalPassword(true)
 
     }
 
@@ -24,7 +24,7 @@ function WindowConfig() {
     return (
         <>
 
-            <div className="text-lg text-indigo-600 capitalize shadow-2xl absolute top-14  right-0 bg-white w-max">
+            <div className="text-lg text-indigo-600 capitalize shadow-2xl absolute top-14  right-0 bg-white w-max z-50">
 
                 <div className="bg-indigo-400 p-12">
 
@@ -58,12 +58,6 @@ function WindowConfig() {
                     </button>
 
                 </div>
-
-                {modalPassword ? (
-
-                    <ModalNewPassword />
-
-                ) : null}
 
             </div>
 

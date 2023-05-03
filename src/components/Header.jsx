@@ -8,34 +8,50 @@ import { useState } from "react"
 
 import PersonInfo from "./PersonInfo"
 import PersonConfig from "./WindowConfig"
-import ModalNewPassword from "./ModalNewPassword"
+import usePrivate from "../hook/UsePrivate"
 
 export default function Header() {
 
   const { auth } = useAuth();
-  const [windowInfo, setWindowInfo] = useState(false)
-  const [windowConfig, setWindowConfig] = useState(false)
-  const handleClose = () => {
+  const {sidebarOpen} = usePrivate();
+  const [windowInfo, setWindowInfo] = useState(false);
+  const [windowConfig, setWindowConfig] = useState(false);
 
+
+  // Open windows logic
+
+  const handleOpenInfo = () => {
+
+    setWindowConfig(false)
+    setWindowInfo(!windowInfo)
+
+  }
+
+  const handleOpenConfig = () => {
+
+    setWindowInfo(false)
+    setWindowConfig(!windowConfig)
   }
 
   return (
     <>
-      <header className="uppercase h-16 bg-white border-b-2 p-2 border-neutral-400 content-center text-white flex justify-between text-lg">
+      <header className="uppercase z-50 h-16 sticky top-0 left-0 bottom-0 right-0 bg-white border-b-2 p-2 border-neutral-400 content-center text-white flex justify-between text-lg">
 
         <div className="flex justify-center content-center">
 
           <img className="w-auto mr-4" src={kit} width={10} height={20} alt="KitDoc Icon" />
 
-          <h1 className="text-black font-bold mt-3">Hi: <span className="text-indigo-700 font-bold "> {auth.name.split(' ')[0] || 'Doc'} </span></h1>
+          <h1 className="text-black font-bold mt-3">Hi: <span className="text-indigo-700 font-bold "> {auth?.name?.split(' ')[0] || 'Doc'} </span></h1>
 
         </div>
 
         <div className="flex justify-between relative gap-4 ">
 
-          <img onClick={() => handleClose()} className="w-auto md:invisible visible" src={menu} width={30} height={30} alt="KitDoc Icon" />
-          <img onClick={() => setWindowInfo(!windowInfo)} className="w-auto  cursor-pointer" src={person} width={20} height={30} alt="KitDoc Icon" />
-          <img onClick={() => setWindowConfig(!windowConfig)} className="w-auto" src={config} width={20} height={30} alt="KitDoc Icon" />
+          <img onClick={sidebarOpen} className="w-auto md:invisible  visible" src={menu} width={30} height={30} alt="KitDoc Icon" />
+
+          <img onClick={handleOpenInfo} className="w-auto  cursor-pointer" src={person} width={20} height={30} alt="KitDoc Icon" />
+
+          <img onClick={handleOpenConfig} className="w-auto" src={config} width={20} height={30} alt="KitDoc Icon" />
 
             {/* Windows  */}
 

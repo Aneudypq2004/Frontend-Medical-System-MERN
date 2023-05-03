@@ -3,16 +3,21 @@ import { createContext, useState } from "react";
 const PrivateContext = createContext()
 
 const PrivateProvider = ({ children }) => {
-    const [sidebarHidden, setSidebarHidder] = useState(false);
+    const [sidebarHidden, setSidebarHidden] = useState(false);
+    const [modalPassword, setModalPassword] = useState(false);
 
 
     const sidebarOpen = () => {
-        setSidebarHidder(!sidebarHidden)
+        setSidebarHidden(!sidebarHidden)
     }
 
     return (
         <PrivateContext.Provider value={{
-            sidebarOpen
+            sidebarOpen,
+            sidebarHidden,
+            modalPassword,
+            setModalPassword
+            
 
         }}>
             {children}
