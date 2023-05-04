@@ -22,7 +22,12 @@ function ModalNewPassword() {
     try {
       e.preventDefault();
 
-      const token = localStorage.getItem('AneudyDevToken')
+      const token = localStorage.getItem('AneudyDevToken');
+
+      if (!token) {
+        setLoad(false)
+        return
+      }
 
       if (password.length < 8) {
         setLoad(false)
@@ -36,12 +41,19 @@ function ModalNewPassword() {
         return;
       }
 
-      const { data } = await clientesAxios.post(`/update-password/${token}`, { password });
+      const config = {
+        headers: {
+          authorization: `Bearer ${token}`
+        }
+      }
+
+      const { data } = await clientesAxios.put('/edit-profile', { password }, config);
+ 
       setModalPassword(false)
-      toast.success(data.msg);
+
+      toast.success(data?.msg);
 
     } catch (error) {
-      setModalPassword(false)
       setLoad(false)
       toast.error(error.response.data.msg);
     }
