@@ -11,8 +11,9 @@ function ModalNewPassword() {
 
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
-  const [load, setLoad] = useState(false)
-  const { setModalPassword} = usePrivate()
+  const [load, setLoad] = useState(false);
+  const { setModalPassword, modalPassword } = usePrivate();
+  const [modalAnimation, setModalAnimation] = useState(false)
 
   // Request
 
@@ -49,7 +50,7 @@ function ModalNewPassword() {
       }
 
       const { data } = await clientesAxios.put('/edit-profile', { password }, config);
- 
+
       setModalPassword(false)
 
       toast.success(data?.msg);
@@ -72,10 +73,20 @@ function ModalNewPassword() {
 
   }
 
-  return (
-    <section style={{backgroundColor : 'rgba( 0, 0, 0  , .9)'}} onClick={handleCloseModal} className='isModal  min-w-full h-full absolute top-0 bottom-0 right-0 left-0 z-50'>
+  useEffect(() => {
 
-      <form onSubmit={handleSubmit} className='bg-white rounded-lg shadow-2xl w-full md:w-1/2 m-auto z-50 p-4 translate-y-1/2'>
+    setTimeout(() => {
+      setModalAnimation(true)
+
+    }, 500);
+
+
+  }, [modalPassword])
+
+  return (
+    <section style={{ backgroundColor: 'rgba( 0, 0, 0  , .9)' }} onClick={handleCloseModal} className='isModal  min-w-full h-full absolute top-0 bottom-0 right-0 left-0 z-50'>
+
+      <form onSubmit={handleSubmit} className={`bg-white translate-y-1/2 rounded-lg shadow-2xl w-full md:w-1/2 m-auto z-50 p-4`}>
 
         <div>
           <img width={35} height={20} className='absolute cursor-pointer' src={x} onClick={() => setModalPassword(false)} />
@@ -86,9 +97,9 @@ function ModalNewPassword() {
 
         {/* Password  */}
 
-        <div className='flex gap-2 flex-col mb-2'>
+        <div className='flex gap-1 flex-col my-2'>
 
-          <label htmlFor="password" className='text-white'>New password</label>
+          <label htmlFor="password" className='text-amber-400 text-lg'>New password</label>
 
           <input
             value={password}
@@ -101,9 +112,9 @@ function ModalNewPassword() {
 
         {/* Repeat Password  */}
 
-        <div className='flex gap-2 flex-col mb-2'>
+        <div className='flex gap-1 flex-col mb-2'>
 
-          <label htmlFor="repeatPassword" className='text-white'>Repeat Password</label>
+          <label htmlFor="repeatPassword" className='text-amber-400 text-lg'>Repeat Password</label>
 
           <input
             value={repeatPassword}
@@ -121,8 +132,14 @@ function ModalNewPassword() {
           </div>
 
         ) : (
-          <button type="submit"
-            className='w-1/2 px-4 py-3 rounded-sm font-bold bg-indigo-600 hover:bg-indigo-800 transition-all duration-700 text-white mt-4 text-lg'>Change</button>
+          <div className='flex gap-2'>
+            <button type="submit"
+              className='w-1/2 px-4 py-3 rounded-sm font-bold bg-indigo-600 hover:bg-indigo-800 transition-all duration-700 text-white mt-4 text-lg'>Change</button>
+
+            <button
+              onClick={() => setModalPassword(false)}
+              className='w-1/2 px-4 py-3 rounded-sm font-bold bg-red-600 hover:bg-red-800 transition-all duration-700 text-white mt-4 text-lg'>Cancel</button>
+          </div>
 
         )}
 

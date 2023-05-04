@@ -3,9 +3,9 @@ import { Outlet, Navigate } from 'react-router-dom';
 
 //Components
 import Sidebar from "../components/Sidebar";
+import Header from "../components/Header";
 
 import useAuth from "../hook/UseAuth";
-import Header from "../components/Header";
 
 export default function AuthRoutes() {
 
@@ -27,7 +27,7 @@ export default function AuthRoutes() {
 
           <Header />
 
-          <main className="md:flex md:gap-8 relative">
+          <main className="md:flex md:gap-8 ">
             <Sidebar />
             <Outlet />
           </main>

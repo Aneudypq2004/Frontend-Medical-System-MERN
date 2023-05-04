@@ -1,5 +1,4 @@
 import { Route, Navigate, Routes, BrowserRouter } from "react-router-dom";
-import { Suspense, lazy } from 'react'
 
 //Pages
 import Login from "./pages/Login"
@@ -12,12 +11,19 @@ import ChangePassword from "./pages/ChangePassword";
 
 //Privates Pages
 import Home from "./pages/Home";
+import Statistics from "./pages/authPages/Statistics";
+import Message from "./pages/authPages/Message";
+import Clients from "./pages/authPages/Clients";
+import Report from "./pages/authPages/Report";
 
-import { ToastContainer } from "react-toastify";
 import AuthRoutes from "./layout/AuthRoutes";
 import usePrivate from "./hook/UsePrivate";
+
+//Modal
+import { ToastContainer } from "react-toastify";
 import ModalNewPassword from "./components/ModalNewPassword";
 import ModalNewName from "./components/ModalNewName";
+
 
 function App() {
 
@@ -26,44 +32,51 @@ function App() {
   return (
 
     <>
-      <main className={modalPassword || modalName ? ' overflow-y-hidden' : ''}>
 
-        <BrowserRouter>
-          <Routes>
-            {/* //---------------------------- Public Routes  ---------------------------------  */}
-            <Route path="/" element={<PublicRoutes />}>
+      <BrowserRouter>
+        <Routes>
+          {/* //---------------------------- Public Routes  ---------------------------------  */}
+          <Route path="/" element={<PublicRoutes />}>
 
-              <Route index element={<Navigate to='/home' />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/create" element={<CreateAccount />} />
-              <Route path="/confirm/:token" element={<Confirm />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/update-password/:token" element={<ChangePassword />} />
-            </Route>
+            <Route index element={<Navigate to='/home' />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/create" element={<CreateAccount />} />
+            <Route path="/confirm/:token" element={<Confirm />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/update-password/:token" element={<ChangePassword />} />
+          </Route>
 
-            {/* //---------------------------- Private Routes  ---------------------------------  */}
-            <Route path="/home" element={<AuthRoutes />}>
-              <Route index element={<Home />} />
-            </Route>
+          {/* //---------------------------- Private Routes  ---------------------------------  */}
 
-            <Route path="*" element={<Error404 />} />
-          </Routes>
-        </BrowserRouter>
-        <ToastContainer className="uppercase" autoClose={3000} />
+          <Route element={<AuthRoutes />}>
+            <Route path="/home" element={<Home />} />
+            <Route path="/statistics" element={<Statistics />} />
+            <Route path="/message" element={<Message />} />
+            <Route path="/clients" element={<Clients />} />
+            <Route path="/report" element={<Report />} />
+          </Route>
 
-        {modalPassword ? (
+          <Route path="*" element={<Error404 />} />
+        </Routes>
 
-          <ModalNewPassword />
+      </BrowserRouter>
 
-        ) : null}
+      {/* Modal   */}
+
+      <ToastContainer className="uppercase" autoClose={3000} />
+
+      {modalPassword ? (
+
+        <ModalNewPassword />
+
+      ) : null}
 
 
-        {modalName ? (
-          <ModalNewName />
-          
-        ) : null}
+      {modalName ? (
+        <ModalNewName />
 
-      </main>
+      ) : null}
+
 
     </>
   )
