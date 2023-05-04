@@ -27,7 +27,7 @@ export default function AuthRoutes() {
 
           <Header />
 
-          <main className="flex gap-8">
+          <main className="md:flex md:gap-8 relative">
             <Sidebar />
             <Outlet />
           </main>

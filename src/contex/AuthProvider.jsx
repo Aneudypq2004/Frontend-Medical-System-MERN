@@ -5,7 +5,8 @@ const AuthContext = createContext()
 const AuthProvider = ({ children }) => {
 
     const [load, setLoad] = useState(true)
-    const [auth, setAuth] = useState({})
+    const [auth, setAuth] = useState({});
+
 
     useEffect(() => {
 
@@ -46,7 +47,8 @@ const AuthProvider = ({ children }) => {
             load,
             auth,
             closeSesionAuth,
-            setAuth
+            setAuth,
+        
         }}>
 
             {children}

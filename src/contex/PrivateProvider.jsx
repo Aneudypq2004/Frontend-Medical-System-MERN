@@ -5,6 +5,9 @@ const PrivateContext = createContext()
 const PrivateProvider = ({ children }) => {
     const [sidebarHidden, setSidebarHidden] = useState(false);
     const [modalPassword, setModalPassword] = useState(false);
+    const [modalName, setModalName] = useState(false)
+    const [windowInfo, setWindowInfo] = useState(false);
+    const [windowConfig, setWindowConfig] = useState(false);
 
 
     const sidebarOpen = () => {
@@ -16,7 +19,14 @@ const PrivateProvider = ({ children }) => {
             sidebarOpen,
             sidebarHidden,
             modalPassword,
-            setModalPassword
+            setModalPassword,
+            windowConfig,
+            windowInfo,
+            setWindowConfig,
+            setWindowInfo,
+            modalName,
+            setModalName
+
             
 
         }}>

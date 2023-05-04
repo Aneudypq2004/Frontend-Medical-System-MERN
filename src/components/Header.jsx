@@ -13,9 +13,7 @@ import usePrivate from "../hook/UsePrivate"
 export default function Header() {
 
   const { auth } = useAuth();
-  const {sidebarOpen} = usePrivate();
-  const [windowInfo, setWindowInfo] = useState(false);
-  const [windowConfig, setWindowConfig] = useState(false);
+  const {sidebarOpen, windowConfig, windowInfo, setWindowConfig, setWindowInfo} = usePrivate();
 
 
   // Open windows logic

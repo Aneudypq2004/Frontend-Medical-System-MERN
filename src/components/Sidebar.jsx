@@ -11,7 +11,7 @@ export default function Sidebar() {
 
   return (
     <aside
-      className={`bg-indigo-600 h-screen p-2 transition-transform duration-500 md:max-w-max w-1/2 sticky right-0 top-14 left-0 bottom-0
+      className={`bg-indigo-600 p-2  h-screen z-40 transition-transform duration-500 md:max-w-max w-6/12
    
         ${sidebarHidden ? '-translate-x-0' : '-translate-x-full md:-translate-x-0'}`}>
 

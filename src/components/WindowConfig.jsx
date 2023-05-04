@@ -10,27 +10,32 @@ import usePrivate from "../hook/UsePrivate";
 function WindowConfig() {
 
     const { auth, closeSesionAuth } = useAuth();
-    const { setModalPassword} = usePrivate()
 
-    const { name, email, _id, createdAt } = auth
+    const { setModalPassword, setWindowConfig, setModalName } = usePrivate()
+
+    const { name, createdAt } = auth
 
     const handleNewPassword = () => {
-
         setModalPassword(true)
+        setWindowConfig(false)
+    }
 
+    const handleNewName = () => {
+        setModalName(true);
+        setWindowConfig(false);
     }
 
 
     return (
         <>
 
-            <div className="text-lg text-indigo-600 capitalize shadow-2xl absolute top-14  right-0 bg-white w-max z-50">
+            <div className="text-lg text-indigo-600  capitalize shadow-2xl absolute top-14  right-0 bg-white w-max z-50">
 
                 <div className="bg-indigo-400 p-12">
 
                 </div>
 
-                <img className="w m-auto -mt-12 bg-white rounded-full " src={person} width={80} height={30} alt="KitDoc Icon" />
+                <img className="m-auto -mt-12 bg-white rounded-full " src={person} width={80} height={30} alt="KitDoc Icon" />
 
                 <div className="p-4">
 
@@ -38,7 +43,7 @@ function WindowConfig() {
 
                         <p>{name}</p>
 
-                        <button className="ml-4 flex uppercase text-center text-white px-4 py-2 rounded bg-amber-400 hover:bg-amber-600">
+                        <button onClick={handleNewName} className="ml-4 flex uppercase text-center text-white px-4 py-2 rounded bg-amber-400 hover:bg-amber-600">
                             Edit <img className="" width={30} src={edit} /></button>
                     </div>
 
