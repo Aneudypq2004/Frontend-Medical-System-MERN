@@ -20,7 +20,7 @@ function Home() {
 
         {/* Form */}
 
-        <form onSubmit={handleSubmit} className='bg-gray-700 p-4 text-black rounded shadow shadow-white' >
+        <form onSubmit={handleSubmit} className='bg-gray-700 p-4 text-black rounded shadow shadow-white mb-4' >
 
           <legend className='text-center text-white text-2xl font-extrabold uppercase '>Add Client</legend>
 
