@@ -71,7 +71,7 @@ function ModalNewName() {
 
     }
     return (
-        <section style={{ backgroundColor: 'rgba( 0, 0, 0  , .9)' }} onClick={handleCloseModal} className='isModal  min-w-full h-full absolute top-0 bottom-0 right-0 left-0 z-50'>
+        <section style={{ backgroundColor: 'rgba( 0, 0, 0  , .9)' }} onClick={handleCloseModal} className='isModal min-w-full h-full absolute top-0 bottom-0 right-0 left-0 z-50'>
 
             <form onSubmit={handleSubmit} className='bg-white translate-y-1/2 rounded shadow-2xl w-full md:w-1/2 m-auto z-50 p-4 '>
 

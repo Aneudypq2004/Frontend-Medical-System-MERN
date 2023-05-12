@@ -1,5 +1,5 @@
 import Spinner from "../components/Spinner";
-import { Outlet, Navigate } from 'react-router-dom';
+import { Outlet, Navigate, redirect } from 'react-router-dom';
 
 //Components
 import Sidebar from "../components/Sidebar";
@@ -27,13 +27,15 @@ export default function AuthRoutes() {
 
           <Header />
 
-          <main className="md:flex md:gap-8 ">
+          <main className="md:flex md:gap-8 mt-16">
             <Sidebar />
-            <Outlet />
+            <section className="container md:pl-52">
+              <Outlet />
+            </section>
           </main>
         </>
       ) :
-        <Navigate to={'/login'} />
+        <Navigate to='/login' />
       }
     </>
   )
