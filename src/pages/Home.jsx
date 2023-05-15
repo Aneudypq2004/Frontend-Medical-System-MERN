@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import Bar from '../components/charts/Bar';
 
 function Home() {
 
@@ -7,25 +8,23 @@ function Home() {
   const [tel, setTel] = useState('')
   const [price, setPrice] = useState('')
 
-
   const handleSubmit = e => {
     e.preventDefault()
   }
 
   return (
     <>
-      <h2 className='text-center w-full mt-8 text-3xl uppercase text-amber-700 '>Manage your patients</h2>
+      {/* <h2 className='text-center w-full mt-8 text-3xl uppercase text-amber-700 '>Manage your patients</h2> */}
 
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mt-4'>
+      <div className='grid grid-cols-1 md:grid-cols-5 gap-y-4 md:gap-4 mt-4'>
 
         {/* Form */}
 
-        <form onSubmit={handleSubmit} className='bg-gray-700 p-4 text-black rounded shadow shadow-white mb-4' >
+        <form onSubmit={handleSubmit} className=' w-full p-4 text-black rounded shadow shadow-white col-span-2 ' >
 
           <legend className='text-center text-white text-2xl font-extrabold uppercase '>Add Client</legend>
 
           {/* Input  */}
-
           <div className='flex flex-col mb-4 '>
 
             <label htmlFor="name" className='uppercase text-lg text-amber-400'>Name</label>
@@ -89,6 +88,16 @@ function Home() {
 
         {/* Section */}
 
+        <div className='p-4 w-full text-white rounded shadow shadow-white  flex flex-col justify-between col-span-3'>
+          < Bar />
+
+          <p className='mt-4 text-2xl font-bold'>Earning this week: <span className='text-amber-700 ml-4'>900 USD</span></p>
+
+        </div>
+
+
+
+
 
 
 
@@ -97,5 +106,6 @@ function Home() {
 
   )
 }
+
 
 export default Home

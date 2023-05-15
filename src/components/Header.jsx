@@ -33,7 +33,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="uppercase  h-16 fixed top-0  left-0 bottom-0 right-0 bg-gray-300 border-b-2 p-2 border-neutral-400 content-center text-white flex justify-between text-lg">
+      <header className="uppercase sticky  h-16 top-0  left-0 bottom-0 right-0 bg-gray-300 border-b-2 p-2 border-neutral-400 content-center text-white flex justify-between text-lg">
 
         <div className="flex justify-center content-center">
 
