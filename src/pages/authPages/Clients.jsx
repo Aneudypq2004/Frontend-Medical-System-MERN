@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 export default function Clients() {
 
-  const number = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
+  const number = [1, 2, 3, 4, 5, 6, 7];
 
 
   return (
@@ -10,24 +10,29 @@ export default function Clients() {
 
       <thead className='bg-amber-400 text-black'>
         <tr>
-          <th className='p-2'>Name</th>
+          <th>Name</th>
           <th>Email</th>
           <th>Tel</th>
+          <th></th>
         </tr>
       </thead>
 
       <tbody>
         {number.map(n => (
 
-          <tr key={n} className='border p-4'>
-            <td className='p-4'>Luis Aneudy</td>
+          <tr key={n} className='border-b border-b-amber-400'>
+            <td>Luis Aneudy</td>
             <td>dluisaneudy82@gmail.com</td>
-            <td>829-451-1343</td>
+            <td >829-451-1343</td>
+            <td className='flex justify-between p-3 gap-4'>
+              <button className='bg-indigo-600 hover:bg-indigo-800 text-center uppercase p-2 rounded'>Send Email</button>
+              <button className='bg-red-600 hover:bg-red-800 text-center uppercase p-2 rounded'>Delete</button>
+            </td>
           </tr>
         ))}
 
       </tbody>
 
-    </table>
+    </table >
   )
 }
