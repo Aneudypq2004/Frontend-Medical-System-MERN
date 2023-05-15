@@ -16,7 +16,7 @@ function Home() {
     <>
       {/* <h2 className='text-center w-full mt-8 text-3xl uppercase text-amber-700 '>Manage your patients</h2> */}
 
-      <div className='grid grid-cols-1 md:grid-cols-5 gap-y-4 md:gap-4 mt-4'>
+      <div className='grid grid-cols-1 md:grid-cols-5 gap-y-4 md:gap-4 my-4'>
 
         {/* Form */}
 
