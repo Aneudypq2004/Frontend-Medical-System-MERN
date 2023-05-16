@@ -8,10 +8,23 @@ const PrivateProvider = ({ children }) => {
     const [modalName, setModalName] = useState(false)
     const [windowInfo, setWindowInfo] = useState(false);
     const [windowConfig, setWindowConfig] = useState(false);
+    const [clients, setClient] = useState([])
+
 
 
     const sidebarOpen = () => {
         setSidebarHidden(!sidebarHidden)
+    }
+
+    const deleteClient = async id => {
+
+        try {
+            
+        } catch (error) {
+            
+        }
+
+
     }
 
     return (
@@ -25,7 +38,10 @@ const PrivateProvider = ({ children }) => {
             setWindowConfig,
             setWindowInfo,
             modalName,
-            setModalName
+            setModalName,
+            clients, 
+            setClient,
+            deleteClient
 
             
 

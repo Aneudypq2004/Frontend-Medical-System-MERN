@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Bar from '../components/charts/Bar';
+import clientesAxios from '../config/clientAxios';
+import { toast } from 'react-toastify';
 
 function Home() {
 
@@ -7,9 +9,43 @@ function Home() {
   const [email, setEmail] = useState('')
   const [tel, setTel] = useState('')
   const [price, setPrice] = useState('')
+  const [tasks, setTasks] = useState('')
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
+
+    try {
+
+      const token = localStorage.getItem('AneudyDevToken');
+
+      const config = {
+        headers: {
+          authorization: `Bearer ${token}`
+        }
+      }
+
+      const { data } = await clientesAxios.post('/add-client', {
+        name,
+        email,
+        tel,
+        price,
+        tasks
+
+      }, config);
+
+      toast.success(data.msg);
+
+      // RESET STATE
+
+      setName('');
+      setEmail('');
+      setTel('');
+      setPrice('');
+      setTasks('');
+
+    } catch (error) {
+      toast.error(error.response.data.msg);
+    }
   }
 
   return (
@@ -63,6 +99,19 @@ function Home() {
               onChange={e => setTel(e.target.value)}
               className='border border-black outline-none focus:border-indigo-800 focus:shadow-lg focus:shadow-indigo-600 px-4 py-2 rounded-sm' type="tel" name="tel" id="tel" />
 
+          </div>
+
+          {/* Input  */}
+
+          <div className='flex flex-col mb-4'>
+
+            <label htmlFor="task" className='uppercase text-lg text-amber-400'>Work</label>
+
+            <input
+              value={tasks}
+              placeholder='Work Done'
+              onChange={e => setTasks(e.target.value)}
+              className='border border-black outline-none focus:border-indigo-800 focus:shadow-lg focus:shadow-indigo-600 px-4 py-2 rounded-sm' type="text" name="task" id="task" />
           </div>
 
           {/* Input  */}

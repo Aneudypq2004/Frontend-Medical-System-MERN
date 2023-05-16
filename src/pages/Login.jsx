@@ -8,8 +8,8 @@ import { validEmail } from "../helpers/ValidEmail";
 import Spinner from '../components/Spinner';
 
 function Login() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('dluisaneudy82@gmail.com');
+    const [password, setPassword] = useState('12345678');
     const [load, setLoad] = useState(false);
 
     const navigate = useNavigate();

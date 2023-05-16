@@ -4,9 +4,8 @@ const AuthContext = createContext()
 
 const AuthProvider = ({ children }) => {
 
-    const [load, setLoad] = useState(true)
+    const [load, setLoad] = useState(true);
     const [auth, setAuth] = useState({});
-
 
     useEffect(() => {
 
@@ -25,8 +24,11 @@ const AuthProvider = ({ children }) => {
             }
 
             try {
-                const { data } = await clientesAxios('/home', config)
-                setAuth(data)
+                const { data } = await clientesAxios('/home', config);
+
+                if (data) {
+                    setAuth(data)
+                }
 
             } catch (error) {
                 setAuth({})
@@ -48,7 +50,7 @@ const AuthProvider = ({ children }) => {
             auth,
             closeSesionAuth,
             setAuth,
-        
+
         }}>
 
             {children}

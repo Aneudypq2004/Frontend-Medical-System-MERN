@@ -1,9 +1,46 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import clientesAxios from '../../config/clientAxios';
+import Spinner from '../../components/Spinner';
+import usePrivate from '../../hook/UsePrivate';
 
 export default function Clients() {
 
-  const number = [1, 2, 3, 4, 5, 6, 7];
+  const { clients, setClient } = usePrivate();
+  const [load, setLoad] = useState(false);
 
+
+
+  useEffect(() => {
+
+    const getClients = async () => {
+
+      setLoad(true)
+
+      const token = localStorage.getItem('AneudyDevToken');
+
+      const config = {
+        headers: {
+          authorization: `Bearer ${token}`
+        }
+      }
+      const { data } = await clientesAxios('/get-clients', config)
+
+      setClient(data.clients);
+
+      setLoad(false)
+
+    }
+    getClients()
+  }, [])
+
+
+  if (load) return (
+
+    <div className="grid place-items-center h-screen">
+      <Spinner />
+    </div>
+
+  )
 
   return (
     <table className='w-full text-white text-center border border-amber-400 table-fixed border-collapse my-4 '>
@@ -18,12 +55,14 @@ export default function Clients() {
       </thead>
 
       <tbody>
-        {number.map(n => (
+        {clients.map(client => (
 
-          <tr key={n} className='border-b border-b-amber-400'>
-            <td>Luis Aneudy</td>
-            <td>dluisaneudy82@gmail.com</td>
-            <td >829-451-1343</td>
+          <tr key={client._id} className='border-b border-b-amber-400'>
+
+            <td>{client.name}</td>
+            <td>{client.email}</td>
+            <td >{client.tel}</td>
+
             <td className='flex justify-between p-3 gap-4'>
               <button className='bg-indigo-600 hover:bg-indigo-800 text-center uppercase p-2 rounded'>Send Email</button>
               <button className='bg-red-600 hover:bg-red-800 text-center uppercase p-2 rounded'>Delete</button>
