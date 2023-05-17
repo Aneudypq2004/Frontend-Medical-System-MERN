@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react'
 import clientesAxios from '../../config/clientAxios';
 import Spinner from '../../components/Spinner';
 import usePrivate from '../../hook/UsePrivate';
+import { toast } from 'react-toastify';
 
 export default function Clients() {
 
   const { clients, setClient } = usePrivate();
   const [load, setLoad] = useState(false);
-
-
 
   useEffect(() => {
 
@@ -31,7 +30,34 @@ export default function Clients() {
 
     }
     getClients()
-  }, [])
+  }, []);
+
+
+  // Fuctions
+
+  const handleDelete = async id => {
+
+    try {
+
+      const token = localStorage.getItem('AneudyDevToken');
+
+      const config = {
+        headers: {
+          authorization: `Bearer ${token}`
+        }
+
+      }
+      const { data } = await clientesAxios.delete(`/delete-client/${id}`, config);
+
+      toast.success(data.msg);
+
+      const newClients = clients.filter(client => client._id !== id);
+      setClient(newClients);
+
+    } catch (error) {
+      toast.error(error.response.data.msg);
+    }
+  }
 
 
   if (load) return (
@@ -49,7 +75,7 @@ export default function Clients() {
         <tr>
           <th>Name</th>
           <th>Email</th>
-          <th>Tel</th>
+          <th className='hidden md:block'>Tel</th>
           <th></th>
         </tr>
       </thead>
@@ -61,11 +87,11 @@ export default function Clients() {
 
             <td>{client.name}</td>
             <td>{client.email}</td>
-            <td >{client.tel}</td>
+            <td className='hidden md:block'>{client.tel}</td>
 
             <td className='flex justify-between p-3 gap-4'>
-              <button className='bg-indigo-600 hover:bg-indigo-800 text-center uppercase p-2 rounded'>Send Email</button>
-              <button className='bg-red-600 hover:bg-red-800 text-center uppercase p-2 rounded'>Delete</button>
+              <a href={`mailto:${client.email}?Your tasks is done`} className='bg-indigo-600 hover:bg-indigo-800 text-center uppercase p-2 rounded cursor-pointer'>Send Email</a>
+              <button className='bg-red-600 hover:bg-red-800 text-center uppercase p-2 rounded' onClick={() => handleDelete(client._id)}>Delete</button>
             </td>
           </tr>
         ))}

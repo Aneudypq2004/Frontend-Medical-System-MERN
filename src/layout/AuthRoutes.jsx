@@ -29,7 +29,7 @@ export default function AuthRoutes() {
 
           <main className="md:flex  md:gap-8">
             <Sidebar />
-            <section className="container md:pl-52">
+            <section className="container m-auto md:pl-52">
               <Outlet />
             </section>
           </main>
