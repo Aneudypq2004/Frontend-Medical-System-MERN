@@ -4,16 +4,15 @@ import menu from '/img/menu.svg'
 import person from '/img/person.svg'
 import config from '/img/config.svg'
 
-import { useState } from "react"
-
 import PersonInfo from "./PersonInfo"
 import PersonConfig from "./WindowConfig"
 import usePrivate from "../hook/UsePrivate"
+import { Link } from "react-router-dom"
 
 export default function Header() {
 
   const { auth } = useAuth();
-  const {sidebarOpen, windowConfig, windowInfo, setWindowConfig, setWindowInfo} = usePrivate();
+  const { sidebarOpen, windowConfig, windowInfo, setWindowConfig, setWindowInfo } = usePrivate();
 
 
   // Open windows logic
@@ -35,13 +34,14 @@ export default function Header() {
     <>
       <header className="uppercase sticky  h-16 top-0  left-0 bottom-0 right-0 bg-gray-300 border-b-2 p-2 border-neutral-400 content-center text-white flex justify-between text-lg">
 
-        <div className="flex justify-center content-center">
 
-          <img className="w-auto mr-4" src={kit} width={10} height={20} alt="KitDoc Icon" />
+        <Link  to={'/home'} className="flex justify-center content-center max-w-max">
 
-          <h1 className="text-black font-bold mt-3">Hi: <span className="text-indigo-700 font-bold "> {auth?.name?.split(' ')[0] || 'Doc'} </span></h1>
+            <img className="mr-4" src={kit} width={50} height={20} alt="KitDoc Icon" />
 
-        </div>
+            <h1 className="text-black font-bold mt-3">Hi: <span className="text-indigo-700 font-bold "> {auth?.name?.split(' ')[0] || 'Doc'} </span></h1>
+
+          </Link>
 
         <div className="flex justify-between relative gap-4 ">
 
@@ -51,7 +51,7 @@ export default function Header() {
 
           <img onClick={handleOpenConfig} className="w-auto" src={config} width={20} height={30} alt="KitDoc Icon" />
 
-            {/* Windows  */}
+          {/* Windows  */}
 
           {windowInfo ? (
 

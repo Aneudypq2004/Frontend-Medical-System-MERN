@@ -1,4 +1,7 @@
+import { useEffect } from "react";
 import { createContext, useState } from "react";
+import clientesAxios from "../config/clientAxios";
+import Spinner from "../components/Spinner";
 
 const PrivateContext = createContext()
 
@@ -8,30 +11,33 @@ const PrivateProvider = ({ children }) => {
     const [modalName, setModalName] = useState(false)
     const [windowInfo, setWindowInfo] = useState(false);
     const [windowConfig, setWindowConfig] = useState(false);
-    const [clients, setClient] = useState([])
-
-
+    const [clients, setClient] = useState([]);
+    const [totalClient, setTotalClient] = useState(0)
+    const [load, setLoad] = useState(false);
 
     const sidebarOpen = () => {
         setSidebarHidden(!sidebarHidden)
     }
 
-    const deleteClient = async id => {
+    //Get price total of every client
 
-        try {
-            
-        } catch (error) {
-            
+    useEffect(() => {
+
+        let total = 0;
+
+        for (let i = 0; i < clients.length; i++) {
+
+            total += clients[i]?.price || 0
         }
 
+        setTotalClient(total);
 
-    }
+    }, [clients]);    
 
     return (
         <PrivateContext.Provider value={{
             sidebarOpen,
             sidebarHidden,
-            modalPassword,
             setModalPassword,
             windowConfig,
             windowInfo,
@@ -39,11 +45,15 @@ const PrivateProvider = ({ children }) => {
             setWindowInfo,
             modalName,
             setModalName,
-            clients, 
+            clients,
             setClient,
-            deleteClient
+            totalClient,
+            load,
+            setLoad,
+            modalPassword
 
-            
+
+
 
         }}>
             {children}

@@ -26,7 +26,9 @@ export default function Sidebar() {
 
         <NavLink to='/message' className={NavActive}>Message</NavLink>
 
-        <NavLink to='/report' className={NavActive}>Report</NavLink>
+        <NavLink to='/profits' className={NavActive}>Profits</NavLink>
+
+        {/* <NavLink to='/report' className={NavActive}>Report</NavLink> */}
 
       </nav>
 

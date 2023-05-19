@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react'
 import Bar from '../components/charts/Bar';
 import clientesAxios from '../config/clientAxios';
 import { toast } from 'react-toastify';
+import usePrivate from '../hook/UsePrivate';
+
 
 function Home() {
 
+  const { totalClient, clients, setClient } = usePrivate();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('')
   const [tel, setTel] = useState('')
@@ -34,6 +37,10 @@ function Home() {
       }, config);
 
       toast.success(data.msg);
+      console.log(data.response)
+
+      const newClient = [...clients, data.response];
+      setClient(newClient);
 
       // RESET STATE
 
@@ -140,16 +147,9 @@ function Home() {
         <div className='p-4 w-full text-white rounded shadow shadow-white  flex flex-col justify-between col-span-3'>
           < Bar />
 
-          <p className='mt-4 text-2xl font-bold'>Earning this week: <span className='text-amber-700 ml-4'>900 USD</span></p>
+          <p className='mt-4 text-2xl font-bold'>Earning this week: <span className='text-amber-700 ml-4'>{totalClient}</span></p>
 
         </div>
-
-
-
-
-
-
-
       </div>
     </>
 

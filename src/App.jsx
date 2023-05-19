@@ -13,6 +13,7 @@ import ChangePassword from "./pages/ChangePassword";
 import Home from "./pages/Home";
 import Statistics from "./pages/authPages/Statistics";
 import Message from "./pages/authPages/Message";
+import Profits from "./pages/authPages/Profits";
 import Clients from "./pages/authPages/Clients";
 import Report from "./pages/authPages/Report";
 
@@ -53,7 +54,8 @@ function App() {
             <Route path="/statistics" element={<Statistics />} />
             <Route path="/message" element={<Message />} />
             <Route path="/clients" element={<Clients />} />
-            <Route path="/report" element={<Report />} />
+            <Route path="/profits" element={<Profits />} />
+            {/* <Route path="/report" element={<Report />} /> */}
           </Route>
 
           <Route path="*" element={<Error404 />} />
