@@ -65,7 +65,7 @@ function App() {
 
       {/* Modal   */}
 
-      <ToastContainer className="uppercase" autoClose={3000} />
+      <ToastContainer className="uppercase" autoClose={1000} />
 
       {modalPassword ? (
 

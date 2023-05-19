@@ -4,6 +4,7 @@ import Spinner from '../../components/Spinner';
 import usePrivate from '../../hook/UsePrivate';
 import { toast } from 'react-toastify';
 
+
 export default function Clients() {
 
   const { clients, setClient, load } = usePrivate();
@@ -48,24 +49,28 @@ export default function Clients() {
 
       <thead className='bg-amber-400 text-black'>
         <tr>
+
           <th>Name</th>
-          <th>Email</th>
+          <th className='max-md:hidden'>Email</th>
           <th className='max-md:hidden'>Tel</th>
+          <th>Task</th>
           <th></th>
+
         </tr>
       </thead>
 
       <tbody>
-        
+
         {clients.map(client => (
 
           <tr key={client._id} className='border-b border-b-amber-400'>
 
             <td>{client.name}</td>
-            <td>{client.email}</td>
+            <td className='max-md:hidden'>{client.email}</td>
             <td className='max-md:hidden'>{client.tel}</td>
-
+            <td>{client.tasks}</td>
             <td className='flex flex-col md:flex-row justify-between p-3 gap-4 w-full'>
+
               <a href={`mailto:${client.email}?Your tasks is done`} className='bg-indigo-600 hover:bg-indigo-800 text-center uppercase p-2 rounded cursor-pointer'>Send Email</a>
               <button className='bg-red-600 hover:bg-red-800 text-center uppercase p-2 rounded' onClick={() => handleDelete(client._id)}>Delete</button>
             </td>

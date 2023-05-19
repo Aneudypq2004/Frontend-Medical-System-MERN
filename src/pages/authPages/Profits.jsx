@@ -1,31 +1,23 @@
 import React from 'react'
 import { Line } from 'react-chartjs-2';
+import usePrivate from '../../hook/UsePrivate';
 
 function Profits() {
-    // Area DATA
 
-    const monthsOfYear = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
-    ];
+    const { clients } = usePrivate();
+
+    const labelClients = clients.map(client => client.name.split(' ')[0]);
+    const PriceClients = clients.map(client => client.price);
+
+    // Area DATA
 
     const areaData = {
 
-        labels: monthsOfYear,
+        labels: labelClients,
 
         datasets: [{
             label: 'Profits',
-            data: [65, 89, 80, 81, 86, 80, 89, 89, 80, 81, 86, 80],
+            data: PriceClients,
             fill: true,
             backgroundColor: [
                 'rgba(255, 99, 132, 1)',
@@ -57,7 +49,7 @@ function Profits() {
     };
 
     return (
-        <div  className='shadow my-4 shadow-white p-4 md:col-span-4'>
+        <div className='shadow my-4 shadow-white p-4 md:col-span-4'>
             <Line data={areaData} options={options} />
         </div>
     )

@@ -1,4 +1,5 @@
 import { Bar } from "react-chartjs-2"
+import usePrivate from "../../hook/UsePrivate";
 
 import {
     Chart as ChartJS,
@@ -21,15 +22,20 @@ ChartJS.register(
 
 
 function ChartBar() {
+    const { clients } = usePrivate();
     
+    const labelClients = clients.map(client => client.name.split(' ')[0]);
+    const PriceClients = clients.map(client => client.price);
+
+
     const data = {
 
-        labels:  ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        labels: labelClients,
 
 
         datasets: [{
             label: 'Money',
-            data: [65, 59, 80, 81, 56, 55, ],
+            data: PriceClients,
             backgroundColor: [
                 'rgba(255, 99, 132, 1)',
                 'rgba(255, 159, 64, 1)',

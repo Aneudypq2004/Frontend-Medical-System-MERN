@@ -3,6 +3,7 @@ import Bar from '../components/charts/Bar';
 import clientesAxios from '../config/clientAxios';
 import { toast } from 'react-toastify';
 import usePrivate from '../hook/UsePrivate';
+import { formatMoney } from '../helpers/FormatMoney';
 
 
 function Home() {
@@ -147,8 +148,7 @@ function Home() {
         <div className='p-4 w-full text-white rounded shadow shadow-white  flex flex-col justify-between col-span-3'>
           < Bar />
 
-          <p className='mt-4 text-2xl font-bold'>Earning this week: <span className='text-amber-700 ml-4'>{totalClient}</span></p>
-
+          <p className='mt-4 text-2xl font-bold'>Earning this week: <span className='text-amber-700 ml-4'>{formatMoney(totalClient)}</span></p>
         </div>
       </div>
     </>

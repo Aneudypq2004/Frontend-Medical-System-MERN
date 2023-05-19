@@ -1,4 +1,5 @@
 import { Line, Pie } from 'react-chartjs-2';
+import usePrivate from '../../hook/UsePrivate';
 
 import { Chart as ChartJS, LineElement, PointElement, LinearScale, Title, ArcElement, Filler, Legend } from 'chart.js';
 
@@ -6,13 +7,20 @@ ChartJS.register(LineElement, PointElement, LinearScale, Title, ArcElement, Fill
 
 export default function Statistics() {
 
+  const { clients } = usePrivate();
+
+  const labelClients = clients.map(client => client.name.split(' ')[0]);
+  const PriceClients = clients.map(client => client.price);
+
+  //Line Data
+
   const lineData = {
 
-    labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    labels: labelClients,
 
     datasets: [{
       label: 'Money',
-      data: [65, 59, 80, 81, 56, 55, 84],
+      data: PriceClients,
       borderColor: 'rgba(255, 205, 86, 1)',
       backgroundColor: [
         'rgba(255, 99, 132, 1)',
@@ -30,11 +38,11 @@ export default function Statistics() {
 
   const PieData = {
 
-    labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    labels: labelClients,
 
     datasets: [{
       label: 'Money',
-      data: [65, 59, 80, 81, 56, 55, 100],
+      data: PriceClients,
       borderColor: '#494490',
       backgroundColor: [
         'rgba(255, 99, 132, 1)',
@@ -48,7 +56,7 @@ export default function Statistics() {
     }]
   }
 
- 
+
 
   //OPTIONS
   const options = {
@@ -80,7 +88,7 @@ export default function Statistics() {
 
       </div>
 
-     
+
 
     </div>
   )
